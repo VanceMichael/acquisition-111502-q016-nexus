@@ -1,0 +1,15 @@
+{
+  "deliveryId": "delivery-1",
+  "revision": "r1",
+  "roots": [
+    {
+      "href": "/files/study.nex"
+    }
+  ],
+  "resources": [
+    {
+      "href": "/files/study.nex",
+      "name": "study.nex"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+[
+  {
+    "kind": "character-state",
+    "value": {
+      "taxon": "B",
+      "character": 1,
+      "kind": "value",
+      "states": [
+        "A"
+      ]
+    }
+  },
+  {
+    "kind": "character-state",
+    "value": {
+      "taxon": "B",
+      "character": 2,
+      "kind": "missing"
+    }
+  },
+  {
+    "kind": "tree-leaf",
+    "value": {
+      "tree": "t1",
+      "token": "1",
+      "taxon": "tax a"
+    }
+  },
+  {
+    "kind": "character-state",
+    "value": {
+      "taxon": "C",
+      "character": 3,
+      "kind": "polymorphic",
+      "states": [
+        "A",
+        "G"
+      ]
+    }
+  }
+]

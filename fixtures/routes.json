@@ -1,0 +1,11 @@
+{
+  "/files/study.nex": {
+    "file": "study.nex",
+    "mediaType": "application/octet-stream",
+    "partialFile": "study.nex.partial"
+  },
+  "/deliveries": {
+    "file": "delivery.json",
+    "mediaType": "application/json"
+  }
+}
