@@ -1,7 +1,7 @@
 import { createServer } from 'node:http';
 import { Archive } from './archive.mjs';
-import { retrieve } from './transport.mjs';
 import { summarize } from './summary.mjs';
+import { ingest } from './ingest.mjs';
 
 export function json(response, status, value) {
   response.writeHead(status, { 'content-type': 'application/json; charset=utf-8' });
@@ -53,10 +53,13 @@ export async function createService({ directory, allowedOrigin }) {
       if (request.method === 'POST' && url.pathname === '/acquisitions') {
         const body = await requestBody(request);
         if (typeof body.entry !== 'string') throw Object.assign(new Error('missing_entry'), { status: 400 });
-        const result = await retrieve(body.entry, allowedOrigin);
-        const receipt = await archive.receive({ collectionId: body.collectionId, sourceKey: body.entry, revision: result.revision,
-          mediaType: result.mediaType, bytes: result.bytes, summary: summarize(result.bytes, result.mediaType) });
-        return json(response, 201, { collectionId: body.collectionId, receiptIds: [receipt.receiptId] });
+        if (!body.collectionId || typeof body.collectionId !== 'string') {
+          throw Object.assign(new Error('missing_collection'), { status: 400 });
+        }
+        const result = await ingest({
+          archive, collectionId: body.collectionId, entry: body.entry, allowedOrigin
+        });
+        return json(response, 201, { collectionId: body.collectionId, receiptIds: result.receiptIds, issues: result.issues });
       }
       return json(response, 404, { error: 'not_found' });
     } catch (error) {
